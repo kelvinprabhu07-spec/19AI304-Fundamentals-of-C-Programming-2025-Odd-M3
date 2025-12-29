@@ -28,7 +28,48 @@ To formulate a C program to convert a decimal number into its binary equivalent 
 ### Step 8: 
    Stop
 # Program:
+---c
+#include <stdio.h>
+
+int main()
+{
+    int num, rem, i = 0;
+    int binary[32];
+
+
+    scanf("%d", &num);
+
+    if (num == 0) {
+        printf("Binary equivalent: 0\n");
+        return 0;
+    }
+
+    int temp = num;
+
+   
+    while (temp > 0)
+    {
+        rem = temp % 2;
+        binary[i] = rem;
+        i++;
+        temp = temp / 2;
+    }
+
+    printf("Binary equivalent of %d: ", num);
+
+
+    for (int k = i - 1; k >= 0; k--)
+    {
+        printf("%d", binary[k]);
+    }
+
+    printf("\n");
+    return 0;
+}
+---
 # Output:
+<img width="1654" height="572" alt="image" src="https://github.com/user-attachments/assets/27049ac6-3c28-4668-8478-b3eba4392db6" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -67,7 +108,88 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 9: 
   Stop
 # Program:
+---c
+#include <stdio.h>
+
+int main()
+{
+    int m, i, j, k;
+    int found = 0;
+
+   
+    scanf("%d", &m);
+
+    if (m > 10 || m < 1) {
+        printf("Invalid matrix size.\n");
+        return 1;
+    }
+
+    int matrix[10][10]; // fixed-size array for up to 10x10 matrix
+
+    printf("Enter the elements of the matrix:\n");
+    for (i = 0; i < m; i++)
+    {
+        for (j = 0; j < m; j++)
+        {
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+
+    printf("\nThe matrix is:\n");
+    for (i = 0; i < m; i++)
+    {
+        for (j = 0; j < m; j++)
+        {
+            printf("%d\t", matrix[i][j]);
+        }
+        printf("\n");
+    }
+
+    // Finding saddle point
+    for (i = 0; i < m; i++)
+    {
+        int min = matrix[i][0];
+        int colIndex = 0;
+
+        // Find minimum in the row i
+        for (j = 1; j < m; j++)
+        {
+            if (matrix[i][j] < min)
+            {
+                min = matrix[i][j];
+                colIndex = j;
+            }
+        }
+
+        // Check if min is the maximum in its column
+        int isSaddle = 1;
+        for (k = 0; k < m; k++)
+        {
+            if (matrix[k][colIndex] > min)
+            {
+                isSaddle = 0;
+                break;
+            }
+        }
+
+        if (isSaddle)
+        {
+            printf("\nSaddle point is %d at position (%d, %d)\n", min, i + 1, colIndex + 1);
+            found = 1;
+        }
+    }
+
+    if (!found)
+    {
+        printf("\nNo saddle point found in the matrix.\n");
+    }
+
+    return 0;
+}
+---
 # Output:
+<img width="1629" height="576" alt="image" src="https://github.com/user-attachments/assets/dcc673c9-0007-48a3-902e-065bbf5133f9" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -101,7 +223,42 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 10: 
   Stop
 # Program:
+---c
+#include <stdio.h>
+
+int main() {
+    char s[100], d[100];
+    int length = 0, i, j;
+
+   
+    scanf("%[^\n]s", s);
+
+    
+    while (s[length] != '\0') {
+        length++;
+    }
+
+   
+    j = 0;
+
+  
+    for (i = length - 1; i >= 0; i--) {
+        d[j] = s[i];
+        j++;
+    }
+
+   
+    d[j] = '\0';
+
+   
+    printf("Reversed string: %s\n", d);
+
+    return 0;
+}
+---
 # Output:
+<img width="1638" height="548" alt="image" src="https://github.com/user-attachments/assets/a47c4b56-efb6-407f-8e6d-d5ce91536fe4" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -135,7 +292,44 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 8:
   Stop
 # Program:
+---c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char s[100];
+    int visited[256] = {0}; 
+    int i, j, n, count;
+
+    printf("Enter a string: ");
+    fgets(s, sizeof(s), stdin); 
+    
+    n = strlen(s);
+    if (s[n - 1] == '\n') {
+        s[n - 1] = '\0';
+        n--;
+    }
+
+    printf("\nCharacter frequencies:\n");
+
+    for (i = 0; i < n; i++) {
+        if (visited[(unsigned char)s[i]] == 0) {
+            count = 0;
+            for (j = 0; j < n; j++) {
+                if (s[j] == s[i])
+                    count++;
+            }
+            printf("%c : %d\n", s[i], count);
+            visited[(unsigned char)s[i]] = 1; 
+        }
+    }
+
+    return 0;
+}
+---
 # Output:
+<img width="1726" height="558" alt="image" src="https://github.com/user-attachments/assets/85348fdd-a07f-48ea-b16f-964918617b34" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -169,7 +363,55 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 8: 
   Stop
 # Program:
+---c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[200];
+    char words[50][50];
+    int i = 0, j = 0, k = 0, wordCount = 0;
+
+    printf("Enter a string: ");
+    scanf("%[^\n]s", str);
+    // Step 5: Split string into words
+    for (i = 0; str[i] != '\0'; i++) {
+        if (str[i] != ' ') {
+            words[wordCount][k++] = str[i];
+        } else {
+            words[wordCount][k] = '\0';
+            wordCount++;
+            k = 0;
+        }
+    }
+    words[wordCount][k] = '\0'; 
+    wordCount++;
+
+    
+    for (i = 0; i < wordCount; i++) {
+        if (words[i][0] == '\0') continue; 
+        for (j = i + 1; j < wordCount; j++) {
+            if (strcmp(words[i], words[j]) == 0) {
+                words[j][0] = '\0'; 
+            }
+        }
+    }
+
+    
+    printf("\nString after removing duplicates:\n");
+    for (i = 0; i < wordCount; i++) {
+        if (words[i][0] != '\0') {
+            printf("%s ", words[i]);
+        }
+    }
+    printf("\n");
+
+    return 0;
+}
+---
 # Output:
+<img width="1822" height="550" alt="image" src="https://github.com/user-attachments/assets/60fb435d-8617-4c75-977a-19ab7e050024" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
